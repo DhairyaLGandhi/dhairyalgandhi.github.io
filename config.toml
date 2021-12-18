@@ -1,2 +1,17 @@
 baseURL = "https://dhairyalgandhi.github.io"
 theme = "hugo-book"
+
+enableEmoji = "true"
+
+[menu]
+  [[menu.nav]]
+  name = "My CV"
+  weight = 3
+  url = "/static/CV/PhD_CV.pdf"
+
+[params]
+  BookTheme = 'auto'
+
+[markup]
+[markup.goldmark.renderer]
+   unsafe = "true"
