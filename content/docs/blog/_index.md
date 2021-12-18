@@ -227,4 +227,4 @@ for idx in 1:51
 end
 ```
 
-Here our struct is just the `RGB` taken from the Colors.jl package. Again, the trick is to have meaningful operations defined on our type, based on the operations we will hit while calculating our loss function. The function `colordiff` already gives us the distance between two colours. Notice, that here we employ a simple `Descent` optimiser, which with enough iterations will just diverge.
+Here our struct is just the `RGB` taken from the Colors.jl package. Again, the trick is to have meaningful operations defined on our type, based on the operations we will hit while calculating our loss function. The function `colordiff` already gives us the distance between two colours. It is important to note that the `Descent` optimiser does not check for convergence bounds and will ultimately diverge if the optimisation loop is not stopped. 
