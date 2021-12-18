@@ -227,4 +227,8 @@ for idx in 1:51
 end
 ```
 
-Here our struct is just the `RGB` taken from the Colors.jl package. Again, the trick is to have meaningful operations defined on our type, based on the operations we will hit while calculating our loss function. The function `colordiff` already gives us the distance between two colours. It is important to note that the `Descent` optimiser does not check for convergence bounds and will ultimately diverge if the optimisation loop is not stopped. 
+Here our struct is just the `RGB` taken from the Colors.jl package. Again, the trick is to have meaningful operations defined on our type, based on the operations we will hit while calculating our loss function. The function `colordiff` already gives us the distance between two colours. It is important to note that the `Descent` optimiser does not check for convergence bounds and will ultimately diverge if the optimisation loop is not stopped.
+
+I hope this helped motivate the different aspects of making a piece of code differentiable, and how that might be useful. The implementation need not be very complicated, if we understand the basic requirements for a library like Zygote. With the coming of [Optimisers.jl](https://github.com/FluxML/Optimisers.jl) it should be possible to automate the optimisation over structs for many cases.
+
+_Cheers_
