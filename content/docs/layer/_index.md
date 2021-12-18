@@ -106,6 +106,8 @@ ConvDown(in_chs,out_chs,kernel = (4,4)) =
 	      x -> leakyrelu.(x, 0.2f0))
 ```
 
+## Composing Layers Together
+
 We can now use these layers to simplify our construction of the actual UNet, which can itself be described as just another layer.
 
 ```julia
@@ -140,10 +142,11 @@ function UNet()
   
   UNet(conv_down_blocks, conv_blocks, up_blocks)
 end
-
 ```
 
 The actual definition of the model is quite a bit clearer and makes it very obvious how the model is layed out. The left side of the model can be mapped to the `conv_down_blocks` and the upsampling ones to the `up_blocks`. Neat.
+
+## Putting All the Pieces Together
 
 Now to define the forward pass, we just need to remember that we want to first downsample the incoming image, apply the conv blocks, and finally upsample it back up to the size of the image. Remember that we modeled the whole thing as a layer? Well we can just define what we spoke about here as the forward pass. Following the [paper](https://arxiv.org/pdf/1505.04597.pdf), it would look a little like so:
 
@@ -169,7 +172,8 @@ end
 
 Since Flux can differentiate arbitrary code, we can take some liberties to define the layers and their forward passes like we did, eliminating any boilerplate, or specialised "blessed" functions to allow us to express the problem naturally. This way of defining layers is just one way to express them. As eluded to before, any function/ operation/ transformation is considered a layer in itself, with most having their gradients calculated on the fly.
 
-The expressiveness the framework allows is one of those subtle differences from how most libraries are laid out. It also means we can just as easily start using other packages in our models as well. No need to have specially designed "differentiable" versions of tools, since in Julia, everything is differenitable by default. Well, almost everything :wink:
+## Closing Thoughts
 
+The expressiveness the framework allows is one of those subtle differences from how most libraries are laid out. It also means we can just as easily start using other packages in our models as well. No need to have specially designed "differentiable" versions of tools, since in Julia, everything is differenitable by default. Well, almost everything :wink:
 
 _Cheers_
