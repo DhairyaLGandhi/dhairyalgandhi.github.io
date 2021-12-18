@@ -13,7 +13,7 @@
 <link rel=icon href=/favicon.png type=image/x-icon>
 <link rel=stylesheet href=/book.min.95d69eb6bad8b9707ff2b5d8d9e31ce70a1b84f2ed7ffaf665ffcf00aa7993bd.css integrity="sha256-ldaetrrYuXB/8rXY2eMc5wobhPLtf/r2Zf/PAKp5k70=" crossorigin=anonymous>
 <script defer src=/flexsearch.min.js></script>
-<script defer src=/en.search.min.e393c725b79fd134c3b7ab2da982532bd0addbcb8f8d06792f4c6969f5c15c98.js integrity="sha256-45PHJbef0TTDt6stqYJTK9Ct28uPjQZ5L0xpafXBXJg=" crossorigin=anonymous></script>
+<script defer src=/en.search.min.799e26d6d2f2f5487380d1c931d8c12edc5e9ac95d0a0f53631daafbeec862ec.js integrity="sha256-eZ4m1tLy9UhzgNHJMdjBLtxemsldCg9TYx2q++7IYuw=" crossorigin=anonymous></script>
 <link rel=alternate type=application/rss+xml href=https://dhairyalgandhi.github.io/docs/layer/index.xml title>
 </head>
 <body dir=ltr>
@@ -70,6 +70,9 @@
 <li><a href=#with-a-unet>With a Unet</a></li>
 <li><a href=#architecture>Architecture</a></li>
 <li><a href=#writing-layers>Writing Layers</a></li>
+<li><a href=#composing-layers-together>Composing Layers Together</a></li>
+<li><a href=#putting-all-the-pieces-together>Putting All the Pieces Together</a></li>
+<li><a href=#closing-thoughts>Closing Thoughts</a></li>
 </ul>
 </nav>
 </aside>
@@ -147,7 +150,11 @@ I&rsquo;ve left the definition of some functions (such as <code>BatchNormWrap</c
 
 	      BatchNormWrap(out_chs)<span style=color:#f92672>...</span>,
 	      x <span style=color:#f92672>-&gt;</span> leakyrelu<span style=color:#f92672>.</span>(x, <span style=color:#ae81ff>0.2f0</span>))
-</code></pre></div><p>We can now use these layers to simplify our construction of the actual UNet, which can itself be described as just another layer.</p>
+</code></pre></div><h2 id=composing-layers-together>
+Composing Layers Together
+<a class=anchor href=#composing-layers-together>#</a>
+</h2>
+<p>We can now use these layers to simplify our construction of the actual UNet, which can itself be described as just another layer.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-julia data-lang=julia><span style=color:#66d9ef>struct</span> <span style=color:#66d9ef>UNet</span>
   conv_down_blocks
   conv_blocks
@@ -179,8 +186,11 @@ I&rsquo;ve left the definition of some functions (such as <code>BatchNormWrap</c
   
   UNet(conv_down_blocks, conv_blocks, up_blocks)
 <span style=color:#66d9ef>end</span>
-
 </code></pre></div><p>The actual definition of the model is quite a bit clearer and makes it very obvious how the model is layed out. The left side of the model can be mapped to the <code>conv_down_blocks</code> and the upsampling ones to the <code>up_blocks</code>. Neat.</p>
+<h2 id=putting-all-the-pieces-together>
+Putting All the Pieces Together
+<a class=anchor href=#putting-all-the-pieces-together>#</a>
+</h2>
 <p>Now to define the forward pass, we just need to remember that we want to first downsample the incoming image, apply the conv blocks, and finally upsample it back up to the size of the image. Remember that we modeled the whole thing as a layer? Well we can just define what we spoke about here as the forward pass. Following the <a href=https://arxiv.org/pdf/1505.04597.pdf>paper</a>, it would look a little like so:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-julia data-lang=julia><span style=color:#66d9ef>function</span> (u<span style=color:#f92672>::</span><span style=color:#66d9ef>UNet</span>)(x)
   outputs <span style=color:#f92672>=</span> <span style=color:#66d9ef>Vector</span>(undef, <span style=color:#ae81ff>5</span>)
@@ -200,6 +210,10 @@ I&rsquo;ve left the definition of some functions (such as <code>BatchNormWrap</c
   tanh<span style=color:#f92672>.</span>(u<span style=color:#f92672>.</span>up_blocks[<span style=color:#66d9ef>end</span>](up_x))
 <span style=color:#66d9ef>end</span>
 </code></pre></div><p>Since Flux can differentiate arbitrary code, we can take some liberties to define the layers and their forward passes like we did, eliminating any boilerplate, or specialised &ldquo;blessed&rdquo; functions to allow us to express the problem naturally. This way of defining layers is just one way to express them. As eluded to before, any function/ operation/ transformation is considered a layer in itself, with most having their gradients calculated on the fly.</p>
+<h2 id=closing-thoughts>
+Closing Thoughts
+<a class=anchor href=#closing-thoughts>#</a>
+</h2>
 <p>The expressiveness the framework allows is one of those subtle differences from how most libraries are laid out. It also means we can just as easily start using other packages in our models as well. No need to have specially designed &ldquo;differentiable&rdquo; versions of tools, since in Julia, everything is differenitable by default. Well, almost everything 😉</p>
 <p><em>Cheers</em></p>
 </article>
@@ -219,6 +233,9 @@ I&rsquo;ve left the definition of some functions (such as <code>BatchNormWrap</c
 <li><a href=#with-a-unet>With a Unet</a></li>
 <li><a href=#architecture>Architecture</a></li>
 <li><a href=#writing-layers>Writing Layers</a></li>
+<li><a href=#composing-layers-together>Composing Layers Together</a></li>
+<li><a href=#putting-all-the-pieces-together>Putting All the Pieces Together</a></li>
+<li><a href=#closing-thoughts>Closing Thoughts</a></li>
 </ul>
 </nav>
 </div>
