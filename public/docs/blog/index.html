@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="MathJax = { tex: { inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]] }, svg: { fontCache: &#39;global&#39; } };   -- Flux has taken some major strides in the past couple of years since it has been out. But its verstality can be subtle to grasp wothout actually using it. So this series is for bringing to notice how best to take advantage of Flux and its gradient-taking backend (automatic differentiation: AD for short) Zygote.">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="Differentiable Programming with Flux.jl" />
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="Differentiable Programming is Easy with Flux" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://dhairyalgandhi.github.io/docs/blog/" />
 
-<title>Differentiable Programming with Flux.jl | </title>
+<title>Differentiable Programming is Easy with Flux | </title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.95d69eb6bad8b9707ff2b5d8d9e31ce70a1b84f2ed7ffaf665ffcf00aa7993bd.css" integrity="sha256-ldaetrrYuXB/8rXY2eMc5wobhPLtf/r2Zf/PAKp5k70=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.69baf24fc667a4e83c19e16dacc60d7e3dba58435f8f31bd60ec46aa552e8df1.js" integrity="sha256-abryT8ZnpOg8GeFtrMYNfj26WENfjzG9YOxGqlUujfE=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.e393c725b79fd134c3b7ab2da982532bd0addbcb8f8d06792f4c6969f5c15c98.js" integrity="sha256-45PHJbef0TTDt6stqYJTK9Ct28uPjQZ5L0xpafXBXJg=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://dhairyalgandhi.github.io/docs/blog/index.xml" title="" />
 <!--
 Made with Book Theme
@@ -86,7 +86,25 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="https://dhairyalgandhi.github.io/docs/blog/" class=" active">Differentiable Programming with Flux.jl</a>
+    <a href="https://dhairyalgandhi.github.io/docs/blog/" class=" active">Differentiable Programming is Easy with Flux</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="https://dhairyalgandhi.github.io/docs/layer/" class="">Writing Custom Layers with Flux</a>
   
 
           
@@ -133,7 +151,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>Differentiable Programming with Flux.jl</strong>
+  <strong>Differentiable Programming is Easy with Flux</strong>
 
   <label for="toc-control">
     
@@ -336,7 +354,9 @@ colour <span style="color:#f92672">=</span> RGB(<span style="color:#ae81ff">1</s
         <span style="color:#a6e22e">@info</span> idx, colour
     <span style="color:#66d9ef">end</span>
 <span style="color:#66d9ef">end</span>
-</code></pre></div><p>Here our struct is just the <code>RGB</code> taken from the Colors.jl package. Again, the trick is to have meaningful operations defined on our type, based on the operations we will hit while calculating our loss function. The function <code>colordiff</code> already gives us the distance between two colours. Notice, that here we employ a simple <code>Descent</code> optimiser, which with enough iterations will just diverge.</p>
+</code></pre></div><p>Here our struct is just the <code>RGB</code> taken from the Colors.jl package. Again, the trick is to have meaningful operations defined on our type, based on the operations we will hit while calculating our loss function. The function <code>colordiff</code> already gives us the distance between two colours. It is important to note that the <code>Descent</code> optimiser does not check for convergence bounds and will ultimately diverge if the optimisation loop is not stopped.</p>
+<p>I hope this helped motivate the different aspects of making a piece of code differentiable, and how that might be useful. The implementation need not be very complicated, if we understand the basic requirements for a library like Zygote. With the coming of <a href="https://github.com/FluxML/Optimisers.jl">Optimisers.jl</a> it should be possible to automate the optimisation over structs for many cases.</p>
+<p><em>Cheers</em></p>
 </article>
  
       

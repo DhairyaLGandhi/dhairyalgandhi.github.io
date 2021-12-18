@@ -1,5 +1,5 @@
 ---
-title: Differentiable Programming with Flux.jl
+title: Differentiable Programming is Easy with Flux
 layout: post
 mathjax: true
 ---
