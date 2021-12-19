@@ -4,6 +4,8 @@ layout: post
 math: true
 ---
 
+#  $\partial$P is Easy with Flux
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
@@ -25,9 +27,7 @@ Starting with a bit of housekeeping. This piece will introduce some basic guidel
 For a TL;DR, differentiable programming ($\partial$P) is a way of treating arbitrary programs as differentiable. Put it easily, it is a generalisation of the way we treat deep learning as consisting of a forward pass and a backwards pass. It applies the chain rule (refer the equation below) to every operatoin that takes place in a program. The record and sequence of the operations to every element in the code is the code itself! Specifically, it is the AST of the code.
 
 {{< katex >}}
-
 $$ \frac{ d{ (f \circ g)(x) }}{ d{x}} = \frac{\partial f}{\partial g} \times \frac{\partial g}{\partial x} $$
-
 {{< /katex >}}
 
 It replaces the standard neural network, with basically any other code and the model subtly melts away from being a sigular entity (think *Sequential* from Keras), to a part of general logic that you wish to implement. ~The adjoints are defined just as they are for any other differentiable function, again generalised from the mathematical priciples, to implementing logic consistent with what a deconstruction of the actions would look like.~
