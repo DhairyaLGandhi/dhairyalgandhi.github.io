@@ -3,8 +3,7 @@ title: Writing Custom Layers with Flux
 layout: post
 ---
 
-# Writing Custom Layers with Flux
-## With a Unet
+# Writing Custom Layers with Flux - With a Unet
 
 Flux is a very versatile library. In particular, it doesn't have a strict interpretation of "layers" as one would find in most libraries. In fact, in more recent research into implicit representation of models and data, we now have models with _infinite_ layers. Instead, Flux focusses on transformations. Having said that, it is still useful to have some abstractions that keep things organised.
  
@@ -31,6 +30,8 @@ Writing a layer in Flux is actually pretty straightforward, getting rid of most 
 
 Thinking of the components to define a layer, we need to figure out what kinds of parameters it can hold, and what happens when the layer is fed some input. For this post, we can assume the inputs are going to be regular arrays. 
 
+### Basic Scaffolding for a Layer
+
 The general style guide to define the layer, would look so:
 
 ```julia
@@ -45,6 +46,8 @@ function (a::MyLayer)(x::AbstractArray)
 end
 ```
 
+### Simple Explanation
+
 Here, our layer would hold some parameters (and peripheral details; think padding for a convolutional layer) in its fields (`a,b,c...`). We then make this layer *callable* (known as a `functor`); this isn't strictly necessary since we can define a normal function that takes a layer object explicitly, like usual, but doing this allows us to use layer in a much more natural looking manner:
 
 ```julia
@@ -55,13 +58,16 @@ There is one additional operation that Flux expects, which is calling `@functor 
 
 {{< hint info >}}
 Note: that if only certain fields are designed to be treated as parameters, leaving the rest of them untouched, it is possible to call
-{{< /hint >}}
 
 ```julia
 @functor MyLayer a, b
 ```
 
+{{< /hint >}}
+
 Beyond this, we will exploit one other possibility that this opens up. This is the ability to compose layers together, creating higher-order layers. Composing these layers together basically makes up the models, with their own forward pass implicitly defined.
+
+### Translating this Pattern to a UNet
 
 Let me demonstrate that with an example. The UNet has a bunch of structures within itself that is symmetric around the smaller convolutional structure. We'll call them `UNetUpBlock`, as it does upsampling.
 
