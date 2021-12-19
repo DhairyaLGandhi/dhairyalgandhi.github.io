@@ -23,4 +23,4 @@ type: docs
 
 
 
-I am a Data Scientist at [Julia Computing](https://juliacomputing.com), working on [FluxML](https://fluxml.ai), the elegant Machine Learning Ecosystem in the Julia programming Language.
+I am a Data Scientist at [Julia Computing](https://juliacomputing.com), working on [FluxML](https://fluxml.ai), the elegant Machine Learning Ecosystem in the [Julia programming Language](https://julialang.org).
