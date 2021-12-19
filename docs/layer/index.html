@@ -2,7 +2,7 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="Writing Custom Layers with Flux #  With a Unet #  Flux is a very versatile library. In particular, it doesn&rsquo;t have a strict interpretation of &ldquo;layers&rdquo; as one would find in most libraries. In fact, in more recent research into implicit representation of models and data, we now have models with infinite layers. Instead, Flux focusses on transformations. Having said that, it is still useful to have some abstractions that keep things organised.">
+<meta name=description content="Writing Custom Layers with Flux - With a Unet #  Flux is a very versatile library. In particular, it doesn&rsquo;t have a strict interpretation of &ldquo;layers&rdquo; as one would find in most libraries. In fact, in more recent research into implicit representation of models and data, we now have models with infinite layers. Instead, Flux focusses on transformations. Having said that, it is still useful to have some abstractions that keep things organised.">
 <meta name=theme-color content="#FFFFFF">
 <meta name=color-scheme content="light dark"><meta property="og:title" content="Writing Custom Layers with Flux">
 <meta property="og:description" content>
@@ -13,7 +13,7 @@
 <link rel=icon href=/favicon.png type=image/x-icon>
 <link rel=stylesheet href=/book.min.95d69eb6bad8b9707ff2b5d8d9e31ce70a1b84f2ed7ffaf665ffcf00aa7993bd.css integrity="sha256-ldaetrrYuXB/8rXY2eMc5wobhPLtf/r2Zf/PAKp5k70=" crossorigin=anonymous>
 <script defer src=/flexsearch.min.js></script>
-<script defer src=/en.search.min.beb1129a45e6efedc1039facee3bf186020f79e978c367d9043c1ee9b94cc004.js integrity="sha256-vrESmkXm7+3BA5+s7jvxhgIPeel4w2fZBDwe6blMwAQ=" crossorigin=anonymous></script>
+<script defer src=/en.search.min.1999e354e908c4806bb2d290d2dea46e3de335a99bad68634c864b738c995bf2.js integrity="sha256-GZnjVOkIxIBrstKQ0t6kbj3jNambrWhjTIZLc4yZW/I=" crossorigin=anonymous></script>
 <link rel=alternate type=application/rss+xml href=https://dhairyalgandhi.github.io/docs/layer/index.xml title>
 </head>
 <body dir=ltr>
@@ -64,9 +64,14 @@
 <aside class="hidden clearfix">
 <nav id=TableOfContents>
 <ul>
-<li><a href=#with-a-unet>With a Unet</a></li>
 <li><a href=#architecture>Architecture</a></li>
-<li><a href=#writing-layers>Writing Layers</a></li>
+<li><a href=#writing-layers>Writing Layers</a>
+<ul>
+<li><a href=#basic-scaffolding-for-a-layer>Basic Scaffolding for a Layer</a></li>
+<li><a href=#simple-explanation>Simple Explanation</a></li>
+<li><a href=#translating-this-pattern-to-a-unet>Translating this Pattern to a UNet</a></li>
+</ul>
+</li>
 <li><a href=#composing-layers-together>Composing Layers Together</a></li>
 <li><a href=#putting-all-the-pieces-together>Putting All the Pieces Together</a></li>
 <li><a href=#closing-thoughts>Closing Thoughts</a></li>
@@ -74,14 +79,10 @@
 </nav>
 </aside>
 </header>
-<article class=markdown><h1 id=writing-custom-layers-with-flux>
-Writing Custom Layers with Flux
-<a class=anchor href=#writing-custom-layers-with-flux>#</a>
+<article class=markdown><h1 id=writing-custom-layers-with-flux---with-a-unet>
+Writing Custom Layers with Flux - With a Unet
+<a class=anchor href=#writing-custom-layers-with-flux---with-a-unet>#</a>
 </h1>
-<h2 id=with-a-unet>
-With a Unet
-<a class=anchor href=#with-a-unet>#</a>
-</h2>
 <p>Flux is a very versatile library. In particular, it doesn&rsquo;t have a strict interpretation of &ldquo;layers&rdquo; as one would find in most libraries. In fact, in more recent research into implicit representation of models and data, we now have models with <em>infinite</em> layers. Instead, Flux focusses on transformations. Having said that, it is still useful to have some abstractions that keep things organised.</p>
 <p>This post will focus on writing a UNet in Flux, and show how it can be used for deep learning. We will use it to write our own custom layers in the process. It is a fairly well aged network, and finds applications in medical imaging, but can be applied to a vast gamut of fields and perform image segmentation tasks in general. In that way, it is a part of natural progression from image classification to object detection and localisation to semantic segmentation and beyond. Here is a brief overview of the network in question.</p>
 <h2 id=architecture>
@@ -99,6 +100,10 @@ Writing Layers
 </h2>
 <p>Writing a layer in Flux is actually pretty straightforward, getting rid of most boilerplate code. Ii is fairly standard practice to define ones own <code>struct</code>s to use in specialisation and method dispatch in Julia. We will use <code>struct</code>s to define our layers.</p>
 <p>Thinking of the components to define a layer, we need to figure out what kinds of parameters it can hold, and what happens when the layer is fed some input. For this post, we can assume the inputs are going to be regular arrays.</p>
+<h3 id=basic-scaffolding-for-a-layer>
+Basic Scaffolding for a Layer
+<a class=anchor href=#basic-scaffolding-for-a-layer>#</a>
+</h3>
 <p>The general style guide to define the layer, would look so:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-julia data-lang=julia><span style=color:#66d9ef>struct</span> <span style=color:#66d9ef>MyLayer</span>
   a
@@ -109,14 +114,23 @@ Writing Layers
 <span style=color:#66d9ef>function</span> (a<span style=color:#f92672>::</span><span style=color:#66d9ef>MyLayer</span>)(x<span style=color:#f92672>::</span><span style=color:#66d9ef>AbstractArray</span>)
   <span style=color:#75715e># do something...</span>
 <span style=color:#66d9ef>end</span>
-</code></pre></div><p>Here, our layer would hold some parameters (and peripheral details; think padding for a convolutional layer) in its fields (<code>a,b,c...</code>). We then make this layer <em>callable</em> (known as a <code>functor</code>); this isn&rsquo;t strictly necessary since we can define a normal function that takes a layer object explicitly, like usual, but doing this allows us to use layer in a much more natural looking manner:</p>
+</code></pre></div><h3 id=simple-explanation>
+Simple Explanation
+<a class=anchor href=#simple-explanation>#</a>
+</h3>
+<p>Here, our layer would hold some parameters (and peripheral details; think padding for a convolutional layer) in its fields (<code>a,b,c...</code>). We then make this layer <em>callable</em> (known as a <code>functor</code>); this isn&rsquo;t strictly necessary since we can define a normal function that takes a layer object explicitly, like usual, but doing this allows us to use layer in a much more natural looking manner:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-julia data-lang=julia>MyLayer(input)
 </code></pre></div><p>There is one additional operation that Flux expects, which is calling <code>@functor MyLayer</code>. It makes it such that all the parameters of our layer are visible to the AD, while backpropagating. This can be thought of in a way &ldquo;registering&rdquo; the layer to take advantage of the rest of the machinery.</p>
 <blockquote class="book-hint info">
-Note: that if only certain fields are designed to be treated as parameters, leaving the rest of them untouched, it is possible to call
-</blockquote>
+<p>Note: that if only certain fields are designed to be treated as parameters, leaving the rest of them untouched, it is possible to call</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-julia data-lang=julia><span style=color:#a6e22e>@functor</span> MyLayer a, b
-</code></pre></div><p>Beyond this, we will exploit one other possibility that this opens up. This is the ability to compose layers together, creating higher-order layers. Composing these layers together basically makes up the models, with their own forward pass implicitly defined.</p>
+</code></pre></div>
+</blockquote>
+<p>Beyond this, we will exploit one other possibility that this opens up. This is the ability to compose layers together, creating higher-order layers. Composing these layers together basically makes up the models, with their own forward pass implicitly defined.</p>
+<h3 id=translating-this-pattern-to-a-unet>
+Translating this Pattern to a UNet
+<a class=anchor href=#translating-this-pattern-to-a-unet>#</a>
+</h3>
 <p>Let me demonstrate that with an example. The UNet has a bunch of structures within itself that is symmetric around the smaller convolutional structure. We&rsquo;ll call them <code>UNetUpBlock</code>, as it does upsampling.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-julia data-lang=julia><span style=color:#66d9ef>struct</span> <span style=color:#66d9ef>UNetUpBlock</span>
   upsample
@@ -227,9 +241,14 @@ Closing Thoughts
 <div class=book-toc-content>
 <nav id=TableOfContents>
 <ul>
-<li><a href=#with-a-unet>With a Unet</a></li>
 <li><a href=#architecture>Architecture</a></li>
-<li><a href=#writing-layers>Writing Layers</a></li>
+<li><a href=#writing-layers>Writing Layers</a>
+<ul>
+<li><a href=#basic-scaffolding-for-a-layer>Basic Scaffolding for a Layer</a></li>
+<li><a href=#simple-explanation>Simple Explanation</a></li>
+<li><a href=#translating-this-pattern-to-a-unet>Translating this Pattern to a UNet</a></li>
+</ul>
+</li>
 <li><a href=#composing-layers-together>Composing Layers Together</a></li>
 <li><a href=#putting-all-the-pieces-together>Putting All the Pieces Together</a></li>
 <li><a href=#closing-thoughts>Closing Thoughts</a></li>
