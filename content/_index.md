@@ -23,4 +23,5 @@ type: docs
 </div>
 
 
-I am a Data Scientist at [Julia Computing](https://juliacomputing.com), working on [FluxML](https://fluxml.ai), the elegant Machine Learning Ecosystem in the [Julia programming Language](https://julialang.org). I can be reached at my [GitHub profile](https://github.com/DhairyaLGandhi) or feel free to write me a [mail](mailto:dhairya@juliacomputing.com), I am happy to collaborate! 
+I am a Data Scientist at [Julia Computing](https://juliacomputing.com), working on [FluxML](https://fluxml.ai), the elegant Machine Learning Ecosystem in the [Julia programming Language](https://julialang.org). I can be reached at my [GitHub profile](https://github.com/DhairyaLGandhi) or feel free to write me a [mail](mailto:dhairyagandhi96@gmail.com), I am happy to collaborate! 
+
