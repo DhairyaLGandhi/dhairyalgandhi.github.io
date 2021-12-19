@@ -2,7 +2,7 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="document.addEventListener(&#34;DOMContentLoaded&#34;, function() { renderMathInElement(document.body, { delimiters: [ {left: &#34;$$&#34;, right: &#34;$$&#34;, display: true}, {left: &#34;$&#34;, right: &#34;$&#34;, display: false} ] }); });  Flux has taken some major strides in the past couple of years since it has been out. But its verstality can be subtle to grasp wothout actually using it. So this series is for bringing to notice how best to take advantage of Flux and its gradient-taking backend (automatic differentiation: AD for short) Zygote.">
+<meta name=description content="$\partial$P is Easy with Flux #   document.addEventListener(&#34;DOMContentLoaded&#34;, function() { renderMathInElement(document.body, { delimiters: [ {left: &#34;$$&#34;, right: &#34;$$&#34;, display: true}, {left: &#34;$&#34;, right: &#34;$&#34;, display: false} ] }); });  Flux has taken some major strides in the past couple of years since it has been out. But its verstality can be subtle to grasp wothout actually using it. So this series is for bringing to notice how best to take advantage of Flux and its gradient-taking backend (automatic differentiation: AD for short) Zygote.">
 <meta name=theme-color content="#FFFFFF">
 <meta name=color-scheme content="light dark"><meta property="og:title" content="Differentiable Programming is Easy with Flux">
 <meta property="og:description" content>
@@ -13,7 +13,7 @@
 <link rel=icon href=/favicon.png type=image/x-icon>
 <link rel=stylesheet href=/book.min.95d69eb6bad8b9707ff2b5d8d9e31ce70a1b84f2ed7ffaf665ffcf00aa7993bd.css integrity="sha256-ldaetrrYuXB/8rXY2eMc5wobhPLtf/r2Zf/PAKp5k70=" crossorigin=anonymous>
 <script defer src=/flexsearch.min.js></script>
-<script defer src=/en.search.min.fcecfc871f3896747ae5d7ca1583cdc1a36857eee67d3b7bd831b2be5f8c8346.js integrity="sha256-/Oz8hx84lnR65dfKFYPNwaNoV+7mfTt72DGyvl+Mg0Y=" crossorigin=anonymous></script>
+<script defer src=/en.search.min.beb1129a45e6efedc1039facee3bf186020f79e978c367d9043c1ee9b94cc004.js integrity="sha256-vrESmkXm7+3BA5+s7jvxhgIPeel4w2fZBDwe6blMwAQ=" crossorigin=anonymous></script>
 <link rel=alternate type=application/rss+xml href=https://dhairyalgandhi.github.io/docs/blog/index.xml title>
 </head>
 <body dir=ltr>
@@ -70,7 +70,11 @@
 </nav>
 </aside>
 </header>
-<article class=markdown><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
+<article class=markdown><h1 id=partialp-is-easy-with-flux>
+$\partial$P is Easy with Flux
+<a class=anchor href=#partialp-is-easy-with-flux>#</a>
+</h1>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
 <p>Flux has taken some major strides in the past couple of years since it has been out. But its verstality can be subtle to grasp wothout actually using it. So this series is for bringing to notice how best to take advantage of Flux and its gradient-taking backend (automatic differentiation: AD for short) Zygote.</p>
 <p><img src=https://raw.githubusercontent.com/FluxML/fluxml.github.io/master/logo.png alt=flux-logo></p>
 <p>Starting with a bit of housekeeping. This piece will introduce some basic guidelines to Julia programming and should hopefully help with your understanding of the language and using it with a few neat tricks. Another task is to clarify what Flux and its ecosystem isn&rsquo;t. It <strong>isn&rsquo;t a strictly deep learning library</strong>, although it does have most of the primitives for deep learning defined. It is essentially a framework for differentiable programming.</p>
