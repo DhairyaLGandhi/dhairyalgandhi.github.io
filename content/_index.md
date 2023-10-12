@@ -23,9 +23,13 @@ type: docs
 </div>
 
 
-I am a Data Scientist at [Julia Computing](https://juliacomputing.com), working on [FluxML](https://fluxml.ai), the elegant Machine Learning Ecosystem in the [Julia programming Language](https://julialang.org). I can be reached at my [GitHub profile](https://github.com/DhairyaLGandhi) or feel free to write me a [mail](mailto:dhairyagandhi96@gmail.com), I am happy to collaborate! 
+I am a Data Scientist at [Julia Hub](https://juliahub.com), working on [FluxML](https://fluxml.ai), the elegant Machine Learning Ecosystem in the [Julia programming Language](https://julialang.org). I can be reached at my [GitHub profile](https://github.com/DhairyaLGandhi) or feel free to write me a [mail](mailto:dhairyagandhi96@gmail.com), I am happy to collaborate! 
 
 # Select Publications and Workshops
+
+* [*Nonequilibrium Electrochemical Phase Maps: Beyond Butler–Volmer Kinetics*](https://pubs.acs.org/doi/10.1021/acs.jpclett.3c01992)
+
+Rachel C. Kurchin, **Dhairya Gandhi**, Venkatasubramanian Viswanathan
 
 * [*Modern Machine Learning with Flux:  Computing Brazil, Brazilian Computer Society 2019*](https://www.sbc.org.br/component/flippingbook/book/43/1?page=41)
 
