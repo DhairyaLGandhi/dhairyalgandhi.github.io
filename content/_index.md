@@ -12,7 +12,7 @@ type: docs
 
   <table style="display: inline-block; border: none;">
     <tr style="border: none;">
-      <td style="border: none; font-size: 24px;"><a href="/CV/PhD_CV.pdf" style="text-decoration: none; color: #000000;">CV</a></td>
+      <td style="border: none; font-size: 24px;"><a href="/CV/CV.pdf" style="text-decoration: none; color: #000000;">CV</a></td>
       <td style="border: none;"> <a href="https://github.com/DhairyaLGandhi"> <img src="https://img.icons8.com/material-rounded/36/000000/github.png" /></a> </td>
      <td style="border: none;"> <a href="https://scholar.google.com/citations?hl=en&user=9i0Z2xkAAAAJ"> <img src="https://img.icons8.com/ios-glyphs/36/000000/graduation-cap--v1.png"/> </a></td>
 
