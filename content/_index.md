@@ -27,6 +27,10 @@ I am a Data Scientist at [Julia Hub](https://juliahub.com), working on [FluxML](
 
 # Select Publications and Workshops
 
+* [*Active Learning Enhanced Surrogate Modeling of Jet Engines in JuliaSim*](https://doi.org/10.2514/6.2025-2323)
+
+Anas Abdelrehim, *Dhairya Gandhi*, Sharan Yalburgi, Ashutosh Bharambe, Ranjan Anantharaman and Christopher V. Rackauckas
+
 * [*Nonequilibrium Electrochemical Phase Maps: Beyond Butler–Volmer Kinetics*](https://pubs.acs.org/doi/10.1021/acs.jpclett.3c01992)
 
 Rachel C. Kurchin, **Dhairya Gandhi**, Venkatasubramanian Viswanathan
