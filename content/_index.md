@@ -27,6 +27,10 @@ I am a Data Scientist at [Julia Hub](https://juliahub.com), working on [FluxML](
 
 # Select Publications and Workshops
 
+* [*Improving process systems engineering with specialized multi-agent large language models*](https://doi.org/10.1016/j.ceja.2026.101141)
+
+Fernando Arrais R.D. Lima, Anas Abdelrehim, Ashutosh Bharambe, Marius Micluţa-Câmpeanu, *Dhairya Gandhi*, Anshul Singhvi, Venkateshprasad Bhat, Morten Piibeleht, Argimiro R. Secchi, Maurício B. de Souza Jr., M. Enis Leblebici, Christopher Rackauckas, Idelfonso B.R. Nogueira
+
 * [*Active Learning Enhanced Surrogate Modeling of Jet Engines in JuliaSim*](https://doi.org/10.2514/6.2025-2323)
 
 Anas Abdelrehim, *Dhairya Gandhi*, Sharan Yalburgi, Ashutosh Bharambe, Ranjan Anantharaman and Christopher V. Rackauckas
