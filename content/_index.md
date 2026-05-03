@@ -23,7 +23,9 @@ type: docs
 </div>
 
 
-I am a Data Scientist at [Julia Hub](https://juliahub.com), working on [FluxML](https://fluxml.ai), the elegant Machine Learning Ecosystem in the [Julia programming Language](https://julialang.org). I can be reached at my [GitHub profile](https://github.com/DhairyaLGandhi) or feel free to write me a [mail](mailto:dhairyagandhi96@gmail.com), I am happy to collaborate! 
+I am a Senior Software Engineer at [Julia Hub](https://juliahub.com). My current work focusses on symbolic-numeric compilers for dynamical systems. I have also worked on research of surrogates that can be applied to real-world dynamical systems. I have previously worked on [FluxML](https://fluxml.ai), the elegant Machine Learning Ecosystem in the [Julia programming Language](https://julialang.org).
+
+I can be reached at my [GitHub profile](https://github.com/DhairyaLGandhi) or feel free to write me a [mail](mailto:dhairyagandhi96@gmail.com), I am happy to collaborate! 
 
 # Select Publications and Workshops
 
