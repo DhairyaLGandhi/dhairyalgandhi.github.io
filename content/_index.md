@@ -23,7 +23,9 @@ type: docs
 </div>
 
 
-I am a Senior Software Engineer at [Julia Hub](https://juliahub.com). My current work focusses on symbolic-numeric compilers for dynamical systems. I have also worked on research of surrogates that can be applied to real-world dynamical systems. I have previously worked on [FluxML](https://fluxml.ai), the elegant Machine Learning Ecosystem in the [Julia programming Language](https://julialang.org).
+I am a Senior Software Engineer at [Julia Hub](https://juliahub.com). My current work focusses on symbolic-numeric compilers for dynamical systems and surrogate modeling for real-world physical systems using Scientific Machine Learning (SciML). I also work on designing modern agentic workflows geared towards industrial applications for physics based modeling and simulation.
+
+I was a core developer and maintainer of [FluxML](https://fluxml.ai), a high-performance yet composable Machine Learning library in the [Julia programming Language](https://julialang.org). It is widely used in academia and industry. It serves as a key tool to my research efforts in SciML and modern agentic workflows.
 
 I can be reached at my [GitHub profile](https://github.com/DhairyaLGandhi) or feel free to write me a [mail](mailto:dhairyagandhi96@gmail.com), I am happy to collaborate! 
 
