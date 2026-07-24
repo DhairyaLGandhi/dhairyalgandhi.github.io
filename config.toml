@@ -7,7 +7,7 @@ enableEmoji = "true"
   [[menu.nav]]
   name = "My CV"
   weight = 3
-  url = "/static/CV/PhD_CV.pdf"
+  url = "/CV/CV.pdf"
 
 [params]
   BookTheme = 'auto'
